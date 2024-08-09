@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <input type="file" multiple ><br>
+    <div id="images"></div>
+    <img id="img"/><br>
+</body>
+
+
+<script lang="text/javascript">
+    $(document).ready(function() {
+
+        $("input[type=file]").change(function() {
+            $("#images").empty(); // Clear the div content before showing new images
+            showImage();
+        });
+        
+        function showImage() {
+            var files = $("input[type=file]").get(0).files;
+            Array.from(files).forEach(function(element) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $("#images").append("<img src='"+e.target.result+"' width='100px' height='100px'/>");
+                };
+                reader.readAsDataURL(element);
+            });
+        }
+    });
+</script>
+</html>
